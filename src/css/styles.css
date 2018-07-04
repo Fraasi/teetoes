@@ -40,7 +40,6 @@ body {
 .info {
 	grid-row: 2 / span 1;
 	grid-column: 1 / span 2;
-	/* border: 1px solid black; */
 }
 
 textarea {
@@ -48,10 +47,10 @@ textarea {
 	grid-row: span 1 / -1;
 	background-color: var(--container-background-color);
 	resize: none;
+	color: var(--div-text-color);
 }
 
 /* player mirrored bars */
-
 #player, audio, #cnvs {
 	width: 430px;
 }
@@ -90,7 +89,6 @@ label[for=speed] {
 }
 
 /* fieldsets */
-
 fieldset {
 	background-color: #1E1E1E;
 }
@@ -145,7 +143,6 @@ a {
 }
 
 /* button click ripple effect */
-
 .buttons {
 	position: relative;
 	overflow: hidden;

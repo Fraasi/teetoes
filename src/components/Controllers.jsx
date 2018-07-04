@@ -10,7 +10,7 @@ export default class Controllers extends Component {
       playing: false,
       voices: null,
       speed: 1,
-      text: 'Paste your text here & press convert. buttons',
+      text: '',
       voice: null,
       language: null,
     }
@@ -94,12 +94,12 @@ export default class Controllers extends Component {
 
         <fieldset className="info">
           <legend>Info</legend>
-          <p className="text-length">Current character count: {this.state.text.length} </p>
+          <span className="text-length">Current text character count: {this.state.text.length} </span>
           <p className="convert-info">
-          Text over 5000 characters will be split up
+          Text over 5000 characters will be split up & converted in multiple requests, please be patient.<br />
           </p>
         </fieldset>
-        <textarea placeholder={this.state.text} onChange={this.onTextAreaChange} />
+        <textarea placeholder="Paste your text here & press convert" onChange={this.onTextAreaChange} />
 
       </div>
     )

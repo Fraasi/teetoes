@@ -1,6 +1,5 @@
 import React from 'react'
 import Controllers from './components/Controllers.jsx';
-// import Header from './components/Header.jsx'
 
 export default class App extends React.Component {
   render() {

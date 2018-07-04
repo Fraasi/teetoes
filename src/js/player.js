@@ -5,7 +5,6 @@ export default function player() {
   const cnvs = document.getElementById('cnvs');
 
   const audio = new Audio();
-  // audio.src = `${__dirname.slice(0, -2)}teetoes.mp3`;
   audio.controls = true;
 
   let audioCtx;
@@ -21,7 +20,7 @@ export default function player() {
   let gradient;
 
   function framelooper() {
-    if (!audio.paused) window.requestAnimationFrame(framelooper);
+    window.requestAnimationFrame(framelooper);
     fbcArr = new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(fbcArr);
     ctx.clearRect(0, 0, cnvs.width, cnvs.height);
