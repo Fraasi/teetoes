@@ -8,7 +8,7 @@ Electron desktop app to convert text to speech.
 * You can just play the file straight up or save it to your computer for later listening.
 * Beautiful voice visualization to go with the synthetic voices.
 
-![2018-07-04_2258.png](src\assets\2018-07-04_2258.png)
+![2018-07-04_2258.png](src/assets/2018-07-04_2258.png)
 
 
 todo:
