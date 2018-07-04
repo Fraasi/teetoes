@@ -5,15 +5,13 @@ export default function player() {
   const cnvs = document.getElementById('cnvs');
 
   const audio = new Audio();
-  // audio.crossOrigin = 'anonymous';
-  audio.src = `${__dirname.slice(0, -2)}teetoes.mp3`;
+  // audio.src = `${__dirname.slice(0, -2)}teetoes.mp3`;
   audio.controls = true;
 
   let audioCtx;
   let analyser;
   let ctx;
   let source;
-  // const ch2 = cnvs.height / 2;
 
   let fbcArr;
   let bars;
@@ -23,7 +21,7 @@ export default function player() {
   let gradient;
 
   function framelooper() {
-    window.requestAnimationFrame(framelooper);
+    if (!audio.paused) window.requestAnimationFrame(framelooper);
     fbcArr = new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(fbcArr);
     ctx.clearRect(0, 0, cnvs.width, cnvs.height);

@@ -10,7 +10,10 @@
 		"no-console": 0,
 		"no-tabs": 0,
 		"semi":0,
-		"global-require": 0
+		"global-require": 0,
+		"indent": 0,
+		"class-methods-use-this": 0,
+		"react/prop-types": 0
 
   }
 }

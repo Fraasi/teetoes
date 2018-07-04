@@ -1,5 +1,179 @@
-@import './Header.css';
-@import './Textarea.css';
-@import './Controllers.css'
+:root {
+	--container-background-color: #515151;
+	--div-background-color: hsl(228, 5%, 22%);
+	/* #35363A */
+	--div-text-color: hsl(0, 0%, 78%);
+	/* #C7C7C7 */
+	--border: 4px solid hsl(0, 0%, 16%);
+	--button-background-color-hover: hsl(240, 3%, 30%);
+	/* #4B4B50 */
+	--button-backgrund-color: hsl(0, 0%, 20%);
+	/* #333 */
+	--link-color: hsl(120, 25%, 65%);
+	/* darkseagreen */
+}
 
-/* Global styles here  */
+body {
+	background-color: var(--container-background-color);
+}
+
+.container {
+	background-color: var(--div-background-color);
+	color: var(--div-text-color);
+	border: var(--border);
+	height: 96vh;
+	display: grid;
+	grid-gap: 5px;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 150px 160px 1fr;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.settings {
+	grid-column: span 1 / -1;
+	grid-row: 2 / span 1;
+	width: 100px;
+	justify-self: end;
+}
+
+.info {
+	grid-row: 2 / span 1;
+	grid-column: 1 / span 2;
+	/* border: 1px solid black; */
+}
+
+textarea {
+	grid-column: 1 / -1;
+	grid-row: span 1 / -1;
+	background-color: var(--container-background-color);
+	resize: none;
+}
+
+/* player mirrored bars */
+
+#player, audio, #cnvs {
+	width: 430px;
+}
+
+#player {
+	grid-column: 1 / span 3;
+	padding: 5px;
+	background: black;
+	justify-self: center;
+}
+
+audio {
+	background: black;
+}
+
+#cnvs {
+	height: 47px;
+	background: rgb(30, 30, 30);
+}
+
+audio::-webkit-media-controls-time-remaining-display {
+	display: flex !important;
+}
+
+#playback-speed {
+	display: block;
+	position: relative;
+	width: 150px;
+	margin: 10px auto 0px auto;
+	color: whitesmoke;
+}
+
+label[for=speed] {
+	position: absolute;
+	margin: 18px 0px 0px 10px;
+}
+
+/* fieldsets */
+
+fieldset {
+	background-color: #1E1E1E;
+}
+
+legend {
+	background-color: #4B4B50;
+	border: 1px solid var(--div-text-color);
+	padding: 3px 6px;
+}
+
+label {
+	margin-top: 5px;
+	display: block;
+	font-size: 12px;
+	color: var(--div-text-color);
+}
+
+select {
+	margin-bottom: 10px;
+}
+
+/* buttons */
+a {
+	text-decoration: none;
+}
+
+.buttons {
+	width: auto;
+	background-color: var(--button-backgrund-color);
+	color: var(--div-text-color);
+	margin: 6px auto 0px auto;
+	border: none;
+	border-radius: 4px;
+	padding: 1px 5px;
+	box-shadow: 0px 0px 2px 1px white;
+	text-align: center;
+}
+.settings .buttons {
+	display: block;
+}
+
+.buttons:hover {
+	background-color: var(--button-background-color-hover);
+}
+
+.buttons:focus {
+	outline: none;
+}
+
+.buttons:active {
+	background-color: #585864;
+}
+
+/* button click ripple effect */
+
+.buttons {
+	position: relative;
+	overflow: hidden;
+}
+
+.buttons:after {
+	content: "";
+	position: absolute;
+	background: rgba(255, 255, 255, 0.4);
+	top: 50%;
+	left: 50%;
+	width: 5px;
+	height: 5px;
+	border-radius: 100%;
+	opacity: 0;
+}
+
+@keyframes ripple {
+	0% {
+		opacity: 1;
+		transform: scale(0, 0);
+	}
+	100% {
+		transform: scale(50, 50);
+		opacity: 0;
+	}
+}
+
+.buttons:focus:not(:active):after {
+	animation: ripple 0.5s ease-out;
+}

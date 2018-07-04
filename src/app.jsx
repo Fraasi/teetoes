@@ -1,22 +1,12 @@
 import React from 'react'
-import Header from './components/Header.jsx'
-import Textarea from './components/Textarea.jsx';
+import Controllers from './components/Controllers.jsx';
+// import Header from './components/Header.jsx'
 
 export default class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      playing: false,
-    }
-  }
-
-
-	// handleControllerClicks() {	}
-
   render() {
-    return (<div>
-      <Header />
-      <Textarea />
-    </div>);
+    return (
+      <div className="app">
+        <Controllers />
+      </div>);
   }
 }

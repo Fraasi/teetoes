@@ -1,8 +1,7 @@
 /* eslint-disable max-len, jsx-a11y/no-static-element-interactions, class-methods-use-this, jsx-a11y/media-has-caption */
 import React, { Component } from 'react'
-// import fs from 'fs'
-// import path from 'path'
-import player from '../js/player.js'
+import Player from './Player';
+import getGoogleAudio from '../js/get-google-audio.js'
 
 export default class Controllers extends Component {
   constructor() {
@@ -10,21 +9,17 @@ export default class Controllers extends Component {
     this.state = {
       playing: false,
       voices: null,
-      volume: 0.5,
       speed: 1,
-      pitch: 1,
-      text: '',
+      text: 'Paste your text here & press convert. buttons',
       voice: null,
       language: null,
-
     }
-    this.handleControllerClicks = this.handleControllerClicks.bind(this)
     this.onSliderChange = this.onSliderChange.bind(this)
-    // this.textElem = document.querySelector('textarea');
+    this.onTextAreaChange = this.onTextAreaChange.bind(this)
   }
 
   componentDidMount() {
-    player()
+    // player()
     const voicesEl = document.querySelector('#voices');
     fetch(`https://texttospeech.googleapis.com/v1beta1/voices?&key=${process.env.G_API_KEY}`)
       .then(resp => resp.json())
@@ -45,7 +40,10 @@ export default class Controllers extends Component {
           }
         })
       })
-      .catch(err => console.log(err))
+      .catch((err) => {
+        document.querySelector('.convert-info').textContent = `Error fetching voices: ${err.message}`
+        console.log(err)
+      })
   }
 
   onSliderChange(e) {
@@ -54,28 +52,25 @@ export default class Controllers extends Component {
     this.setState({
       [slider]: value,
     })
-    // console.log(value)
+    document.querySelector('audio').playbackRate = value
   }
 
-  handleControllerClicks() {
+  onTextAreaChange() {
     this.setState({
-      playing: !this.state.playing,
+      text: document.querySelector('textarea').value,
     })
-    // const text = document.querySelector('textarea').value
-    // console.log(e.target, text)
+  }
+
+  convertText() {
+    getGoogleAudio()
   }
 
   render() {
     return (
-      <div>
+      <div className="container">
+        <Player onSliderChange={this.onSliderChange} speed={this.state.speed} />
 
-        <div id="player">
-          <div id="soundbox" />
-          <canvas id="cnvs" />
-        </div>
-
-
-        <fieldset>
+        <fieldset className="settings">
           <legend>Audio settings</legend>
 
           <label htmlFor="voices">Select voice:</label>
@@ -83,91 +78,30 @@ export default class Controllers extends Component {
             id="voices"
             name="voices"
           />
-          <label htmlFor="volume">Volume: {this.state.volume}</label>
-          <input
-            type="range"
-            id="volume"
-            name="volume"
-            min="0"
-            max="1"
-            step="0.1"
-            defaultValue="0.5"
-            list="tickmarksVolume"
-            onChange={this.onSliderChange}
-          />
+          <label htmlFor="gender">Select gender:</label>
+          <select
+            id="gender"
+            name="gender"
+            defaultValue="Female"
+          >
+            <option>Female</option>
+            <option>Male</option>
+          </select>
 
-          <label htmlFor="speed">Speed: {this.state.speed}</label>
-          <input
-            type="range"
-            id="speed"
-            name="speed"
-            min="0.5"
-            max="2"
-            defaultValue="1"
-            step="0.1"
-            list="tickmarksSpeed"
-            onChange={this.onSliderChange}
-
-          />
-          <label htmlFor="pitch">Pitch: {this.state.pitch}</label>
-          <input
-            type="range"
-            id="pitch"
-            name="pitch"
-            min="0"
-            max="2"
-            step="0.1"
-            defaultValue="1"
-            list="tickmarksPitch"
-            onChange={this.onSliderChange}
-          />
-          <datalist id="tickmarksVolume">
-            <option value="0" />
-            <option value="0.1" />
-            <option value="0.2" />
-            <option value="0.3" />
-            <option value="0.4" />
-            <option value="0.5" />
-            <option value="0.6" />
-            <option value="0.7" />
-            <option value="0.8" />
-            <option value="0.9" />
-            <option value="1" />
-          </datalist>
-          <datalist id="tickmarksSpeed">
-            <option value="0" />
-            <option value="1" />
-            <option value="2" />
-            <option value="3" />
-            <option value="4" />
-            <option value="5" />
-            <option value="6" />
-            <option value="7" />
-            <option value="8" />
-            <option value="9" />
-            <option value="10" />
-          </datalist>
-          <datalist id="tickmarksPitch">
-            <option value="0" />
-            <option value="0.2" />
-            <option value="0.4" />
-            <option value="0.6" />
-            <option value="0.8" />
-            <option value="1" />
-            <option value="1.2" />
-            <option value="1.4" />
-            <option value="1.6" />
-            <option value="1.8" />
-            <option value="2" />
-          </datalist>
+          <button className="buttons" onClick={this.convertText}>Convert</button>
 
         </fieldset>
 
+        <fieldset className="info">
+          <legend>Info</legend>
+          <p className="text-length">Current character count: {this.state.text.length} </p>
+          <p className="convert-info">
+          Text over 5000 characters will be split up
+          </p>
+        </fieldset>
+        <textarea placeholder={this.state.text} onChange={this.onTextAreaChange} />
 
       </div>
     )
   }
 }
-
-
-// getGoogleAudio()
