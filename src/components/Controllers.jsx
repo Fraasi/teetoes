@@ -5,11 +5,7 @@ import getGoogleAudio from '../js/get-google-audio.js'
 const { remote } = require('electron')
 
 const { Menu, MenuItem } = remote
-
-process.env.G_API_KEY = 'AIzaSyAcqSqUMYEENWsz1_80RYAE8pwWnWPczsw'
-
 const menu = new Menu()
-
 menu.append(new MenuItem({ role: 'cut', accelerator: 'CmdOrCtrl+X' }))
 menu.append(new MenuItem({ role: 'copy', accelerator: 'CmdOrCtrl+C' }))
 menu.append(new MenuItem({ role: 'paste', accelerator: 'CmdOrCtrl+V' }))
