@@ -1,12 +1,11 @@
 import { spliceAndDiceArray, makePromises } from './array-methods'
 
 export default function getGoogleAudio() {
-	const gender = document.querySelector('#gender')
 	const audio = document.querySelector('audio')
 	const text = document.querySelector('textarea')
 	const info = document.querySelector('.convert-info')
 	const voices = document.querySelector('#voices')
-	console.log(voices.value, gender.value)
+	console.log(voices.value)
 	const startTime = new Date()
 
 	info.innerHTML = 'Sending request(s), converting<span class="jsloader"></span>'
@@ -18,7 +17,7 @@ export default function getGoogleAudio() {
 	}, 500);
 	audio.style.pointerEvents = 'none'
 
-	const promises = makePromises(spliceAndDiceArray(text.value), voices.value, gender.value)
+	const promises = makePromises(spliceAndDiceArray(text.value), voices.value)
 	Promise.all(promises)
 		.then((values) => {
 			clearInterval(interval)

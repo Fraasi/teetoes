@@ -1,8 +1,9 @@
 import { app, BrowserWindow } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
+import path from 'path';
 
-require('dotenv').config()
+require('dotenv').config();
 
 let mainWindow;
 
@@ -12,8 +13,10 @@ if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
 
 const createWindow = async () => {
   mainWindow = new BrowserWindow({
-    width: 600,
+    width: 650,
     height: 500,
+    icon: path.join(__dirname, 'assets/icon-fraasi-32x32.png'),
+    resizable: isDevMode,
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);

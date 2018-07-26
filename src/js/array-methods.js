@@ -3,14 +3,14 @@ export function spliceAndDiceArray(textString) {
 	const length = textString.length
 	const slicedArr = []
 	let start = 0
-	const end = 4900
+	const end = 5000
 	while (length >= start) {
 		slicedArr.push(textString.slice(start, start += end))
 	}
 	return slicedArr
 }
 
-export function makePromises(sliceyArr, voice, gender) {
+export function makePromises(sliceyArr, voice) {
 	const promises = []
 	sliceyArr.forEach((text) => {
 		const requestBody = {
@@ -25,7 +25,7 @@ export function makePromises(sliceyArr, voice, gender) {
 			voice: {
 				languageCode: voice.slice(0, 5),
 				name: voice,
-				ssmlGender: gender,
+				// ssmlGender: gender,
 			},
 		}
 

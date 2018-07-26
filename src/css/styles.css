@@ -23,8 +23,8 @@ body {
 	border: var(--border);
 	height: 96vh;
 	display: grid;
-	grid-gap: 5px;
-	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 10px;
+	grid-template-columns: 1px 350px 1fr;
 	grid-template-rows: 150px 160px 1fr;
 	box-sizing: border-box;
 	padding: 10px;
@@ -33,7 +33,7 @@ body {
 .settings {
 	grid-column: span 1 / -1;
 	grid-row: 2 / span 1;
-	width: 100px;
+	min-width: 200px;
 	justify-self: end;
 }
 
@@ -102,12 +102,19 @@ legend {
 label {
 	margin-top: 5px;
 	display: block;
-	font-size: 12px;
+	font-size: 14px;
 	color: var(--div-text-color);
 }
 
 select {
 	margin-bottom: 10px;
+}
+
+/* radio buttons */
+#standard, #wavenet {
+	float: right;
+    position: relative;
+    top: 5px;
 }
 
 /* buttons */
@@ -174,3 +181,4 @@ a {
 .buttons:focus:not(:active):after {
 	animation: ripple 0.5s ease-out;
 }
+
