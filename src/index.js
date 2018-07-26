@@ -13,10 +13,10 @@ if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
 
 const createWindow = async () => {
   mainWindow = new BrowserWindow({
-    width: 650,
+    width: 670,
     height: 500,
     icon: path.join(__dirname, 'assets/icon-fraasi-32x32.png'),
-    resizable: isDevMode,
+    resizable: true, // isDevMode doesnt work
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);

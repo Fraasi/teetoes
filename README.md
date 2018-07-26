@@ -9,9 +9,3 @@ Electron desktop app to convert text to speech.
 * Beautiful voice visualization to go with the synthetic voices.
 
 ![2018-07-04_2258.png](src/assets/2018-07-26_1127.png)
-
-
-todo before packaging:
- 
-* [ ] maybe take out the electron default menu  
-* [ ] maybe make window non resizable

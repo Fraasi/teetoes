@@ -1,7 +1,19 @@
-/* eslint-disable max-len, jsx-a11y/no-static-element-interactions, class-methods-use-this, jsx-a11y/media-has-caption */
 import React, { Component } from 'react'
-import Player from './Player';
+import Player from './Player'
 import getGoogleAudio from '../js/get-google-audio.js'
+
+const { remote } = require('electron')
+
+const { Menu, MenuItem } = remote
+
+process.env.G_API_KEY = 'AIzaSyAcqSqUMYEENWsz1_80RYAE8pwWnWPczsw'
+
+const menu = new Menu()
+
+menu.append(new MenuItem({ role: 'cut', accelerator: 'CmdOrCtrl+X' }))
+menu.append(new MenuItem({ role: 'copy', accelerator: 'CmdOrCtrl+C' }))
+menu.append(new MenuItem({ role: 'paste', accelerator: 'CmdOrCtrl+V' }))
+menu.append(new MenuItem({ role: 'selectAll', accelerator: 'CmdOrCtrl+A' }))
 
 export default class Controllers extends Component {
   constructor() {
@@ -20,6 +32,10 @@ export default class Controllers extends Component {
   }
 
   componentDidMount() {
+    document.querySelector('textArea').addEventListener('contextmenu', (e) => {
+      e.preventDefault()
+      menu.popup({ window: remote.getCurrentWindow() })
+    }, false)
     fetch(`https://texttospeech.googleapis.com/v1beta1/voices?&key=${process.env.G_API_KEY}`)
       .then(resp => resp.json())
       .then((data) => {
@@ -114,7 +130,7 @@ export default class Controllers extends Component {
             Text over 5000 characters will be split up & converted in multiple requests, please be patient.<br />
           </p>
         </fieldset>
-        <textarea placeholder="Paste your text here & press convert" onChange={this.onTextAreaChange} />
+        <textarea placeholder="Paste your text here, select a voice and click convert" onChange={this.onTextAreaChange} />
 
       </div>
     )
