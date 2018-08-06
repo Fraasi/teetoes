@@ -1,7 +1,7 @@
 {
   "name": "teetoes",
   "productName": "Teetoes - text to speech",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Text to speech app",
   "main": "src/index.js",
   "scripts": {
