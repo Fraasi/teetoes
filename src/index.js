@@ -15,6 +15,7 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     width: 670,
     height: 500,
+    title: `Teetoes - text to speech - V${app.getVersion()}`,
     icon: path.join(__dirname, 'assets/icon-fraasi-32x32.png'),
     resizable: true, // isDevMode doesnt work
   });
