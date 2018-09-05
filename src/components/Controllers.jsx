@@ -21,7 +21,7 @@ export default class Controllers extends Component {
       speed: 1,
       text: '',
     }
-    this.letters = ['A', 'B', 'C', 'D', 'E', 'F'] // even = females, odd =  males
+    this.genderLetters = ['A', 'B', 'C', 'D', 'E', 'F'] // even = females, odd =  males
     this.onSliderChange = this.onSliderChange.bind(this)
     this.onTextAreaChange = this.onTextAreaChange.bind(this)
     this.sortVoices = this.sortVoices.bind(this)
@@ -50,14 +50,14 @@ export default class Controllers extends Component {
   sortVoices(e) {
     // e.persist()
     const selectedVoice = e ? e.target.defaultValue : 'Standard'
-    console.log(selectedVoice)
-    const voicesEl = document.querySelector('#voices');
+    console.log('selectedVoice', selectedVoice)
+    const voicesEl = document.querySelector('#voices')
     voicesEl.innerHTML = ''
     this.state.voices.voices.forEach((voice) => {
       if (voice.name.includes(selectedVoice)) {
         const option = document.createElement('option')
         option.value = voice.name
-        option.text = voice.name + this.isFemale(voice.name.slice(-1))
+        option.text = voice.name + this.getGender(voice.name.slice(-1))
         if (voice.name === 'en-US-Standard-B') {
           option.setAttribute('selected', 'selected')
           this.setState({
@@ -93,8 +93,8 @@ export default class Controllers extends Component {
     getGoogleAudio()
   }
 
-  isFemale(letter) {
-    return this.letters.indexOf(letter) % 2
+  getGender(letter) {
+    return this.genderLetters.indexOf(letter) % 2
       ? ' - Male'
       : ' - Female'
   }

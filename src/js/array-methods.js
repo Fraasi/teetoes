@@ -1,18 +1,28 @@
-
-export function spliceAndDiceArray(textString) {
-	const length = textString.length
+/**
+ * Slices text over 5000 & returns array
+ * @param {string} text
+ * @return {Array} Array of strings
+ */
+export function sliceAndDiceArray(text) {
+	const length = text.length
 	const slicedArr = []
 	let start = 0
 	const end = 5000
 	while (length >= start) {
-		slicedArr.push(textString.slice(start, start += end))
+		slicedArr.push(text.slice(start, start += end))
 	}
 	return slicedArr
 }
 
-export function makePromises(sliceyArr, voice) {
+/**
+ * Make request promises out of array of texts
+ * @param {Array} slicedArr
+ * @param {string} voice
+ * @returns {Array} Array of promises
+ */
+export function makeRequestPromises(slicedArr, voice) {
 	const promises = []
-	sliceyArr.forEach((text) => {
+	slicedArr.forEach((text) => {
 		const requestBody = {
 			audioConfig: {
 				audioEncoding: 'MP3',
