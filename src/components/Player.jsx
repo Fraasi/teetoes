@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import player from '../js/player.js'
 
 export default class Player extends Component {
-
   componentDidMount() {
     player()
   }
@@ -22,7 +21,6 @@ export default class Player extends Component {
           defaultValue="1"
           step="0.1"
           list="tickmarksSpeed"
-          // eslint-disable-next-line
           onChange={this.props.onSliderChange}
         />
         <datalist id="tickmarksSpeed">
@@ -44,7 +42,6 @@ export default class Player extends Component {
           <option value="2" />
         </datalist>
       </div>
-
     )
   }
 }

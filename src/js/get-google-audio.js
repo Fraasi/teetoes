@@ -28,7 +28,7 @@ export default function getGoogleAudio() {
 			})
 
 			const binary = Buffer.from(concatenatedResponse, 'base64')
-			const blob = new Blob([binary], { type: 'audio/mp3' })
+			const blob = new Blob([binary], { type: 'audio/mpeg' })
 			const oUrl = URL.createObjectURL(blob)
 			audio.src = oUrl
 			audio.style.pointerEvents = ''
