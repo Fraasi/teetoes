@@ -34,11 +34,11 @@ export default function getGoogleAudio() {
 			audio.style.pointerEvents = ''
 			const endTime = new Date()
 			const time = (endTime - startTime) / 1000
-			info.innerHTML = `Text converted in ${values.length} part(s), in ${time.toFixed(3)} seconds.<br/>Audio file ready to play or  \u00A0`
+			info.innerHTML = `Text converted in ${values.length} part(s), in ${time.toFixed(3)} seconds.<br/>Audio file ready to play or  \u00A0\u00A0`
 
 			const a = document.createElement('a')
 			a.href = oUrl
-			a.download = `teetoes-${voices.value}.mp3`
+			a.download = `${voices.value.replace(/-/g, '_')} - teetoes.mp3`
 			a.innerHTML = '<button class="buttons">Save to file</button>'
 			info.appendChild(a)
 			audio.onload = () => {

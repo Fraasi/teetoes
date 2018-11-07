@@ -15,6 +15,7 @@
 
 body {
 	background-color: var(--container-background-color);
+	user-select: none;
 }
 
 .container {
@@ -45,8 +46,9 @@ body {
 textarea {
 	grid-column: 1 / -1;
 	grid-row: span 1 / -1;
-	background-color: var(--container-background-color);
 	resize: none;
+	user-select: all;
+	background-color: var(--container-background-color);
 	color: var(--div-text-color);
 }
 

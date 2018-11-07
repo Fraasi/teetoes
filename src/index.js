@@ -14,10 +14,10 @@ if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
 const createWindow = async () => {
   mainWindow = new BrowserWindow({
     width: 670,
-    height: 500,
+    height: 540,
     title: `Teetoes - text to speech - V${app.getVersion()}`,
     icon: path.join(__dirname, 'assets/icon-fraasi-32x32.png'),
-    resizable: true, // isDevMode doesnt work
+    resizable: false, // isDevMode doesnt work
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);

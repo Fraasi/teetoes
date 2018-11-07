@@ -1,9 +1,16 @@
 {
   "name": "teetoes",
   "productName": "Teetoes - text to speech",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Text to speech app",
   "main": "src/index.js",
+  "keywords": ["text", "speech", "text to speech"],
+  "author": "Fraasi <fraasi.gh@gmail.com> (https://github.com/fraasi/)",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Fraasi/teetoes.git"
+  },
+  "license": "MIT",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -11,9 +18,6 @@
     "publish": "electron-forge publish",
     "lint": "eslint --cache --color --ext .jsx,.js src"
   },
-  "keywords": [],
-  "author": "Fra.AS.I",
-  "license": "MIT",
   "config": {
     "forge": {
       "make_targets": {
@@ -29,7 +33,9 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm"
+        "packageManager": "npm",
+        "asar": true,
+        "icon": "./src/assets/fraasi-64x64.ico"
       },
       "electronWinstallerConfig": {
         "name": "teetoes"

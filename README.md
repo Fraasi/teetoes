@@ -1,4 +1,4 @@
-### Teetoes text to speech.  
+### Teetoes text to speech  
 
 Electron desktop app to convert text to speech.
 
@@ -8,4 +8,4 @@ Electron desktop app to convert text to speech.
 * You can just play the file straight up or save it to your computer for later listening.
 * Beautiful voice visualization to go with the synthetic voices.
 
-![2018-07-04_2258.png](src/assets/2018-07-26_1127.png)
+![2018-11-06_2204.png](src/assets/2018-11-06_2204.png)
