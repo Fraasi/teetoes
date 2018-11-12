@@ -17,7 +17,7 @@ const createWindow = async () => {
     height: 540,
     title: `Teetoes - text to speech - V${app.getVersion()}`,
     icon: path.join(__dirname, 'assets/icon-fraasi-32x32.png'),
-    resizable: false, // isDevMode doesnt work
+    resizable: true, // isDevMode doesnt work
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);

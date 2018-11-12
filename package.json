@@ -4,11 +4,15 @@
   "version": "0.1.1",
   "description": "Text to speech app",
   "main": "src/index.js",
-  "keywords": ["text", "speech", "text to speech"],
+  "keywords": [
+    "text",
+    "speech",
+    "text to speech"
+  ],
   "author": "Fraasi <fraasi.gh@gmail.com> (https://github.com/fraasi/)",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/Fraasi/teetoes.git"
+    "type": "git",
+    "url": "https://github.com/Fraasi/teetoes.git"
   },
   "license": "MIT",
   "scripts": {
@@ -53,7 +57,7 @@
     }
   },
   "dependencies": {
-    "dotenv": "^6.0.0",
+    "dotenv": "^6.1.0",
     "electron-compile": "^6.4.3",
     "electron-devtools-installer": "^2.2.4",
     "electron-squirrel-startup": "^1.0.0",
@@ -66,13 +70,13 @@
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "electron-context-menu": "^0.10.0",
+    "electron-context-menu": "^0.10.1",
     "electron-forge": "^5.2.2",
     "electron-prebuilt-compile": "2.0.3",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.10.0"
+    "eslint-plugin-react": "^7.11.1"
   }
 }

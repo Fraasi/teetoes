@@ -35,7 +35,6 @@ export function makeRequestPromises(slicedArr, voice) {
 			voice: {
 				languageCode: voice.slice(0, 5),
 				name: voice,
-				// ssmlGender: gender,
 			},
 		}
 

@@ -11,7 +11,7 @@ menu.append(new MenuItem({ role: 'copy', accelerator: 'CmdOrCtrl+C' }))
 menu.append(new MenuItem({ role: 'paste', accelerator: 'CmdOrCtrl+V' }))
 menu.append(new MenuItem({ role: 'selectAll', accelerator: 'CmdOrCtrl+A' }))
 
-export default class Controllers extends Component {
+export default class Fieldsets extends Component {
   constructor() {
     super()
     this.state = {
@@ -21,7 +21,6 @@ export default class Controllers extends Component {
       speed: 1,
       text: '',
     }
-    this.genderLetters = ['A', 'B', 'C', 'D', 'E', 'F'] // even = females, odd =  males
     this.onSliderChange = this.onSliderChange.bind(this)
     this.onTextAreaChange = this.onTextAreaChange.bind(this)
     this.sortVoices = this.sortVoices.bind(this)
@@ -34,9 +33,9 @@ export default class Controllers extends Component {
     }, false)
     fetch(`https://texttospeech.googleapis.com/v1beta1/voices?&key=${process.env.G_API_KEY}`)
       .then(resp => resp.json())
-      .then((data) => {
+      .then((voices) => {
         this.setState({
-          voices: data,
+          voices,
         }, function () {
           this.sortVoices()
         })
@@ -48,16 +47,14 @@ export default class Controllers extends Component {
   }
 
   sortVoices(e) {
-    // e.persist()
     const selectedVoice = e ? e.target.defaultValue : 'Standard'
-    console.log('selectedVoice', selectedVoice)
     const voicesEl = document.querySelector('#voices')
     voicesEl.innerHTML = ''
     this.state.voices.voices.forEach((voice) => {
       if (voice.name.includes(selectedVoice)) {
         const option = document.createElement('option')
         option.value = voice.name
-        option.text = voice.name + this.getGender(voice.name.slice(-1))
+        option.text = `${voice.name}-${voice.ssmlGender.toLowerCase()}`
         if (voice.name === 'en-US-Standard-B') {
           option.setAttribute('selected', 'selected')
           this.setState({
@@ -93,12 +90,6 @@ export default class Controllers extends Component {
     getGoogleAudio()
   }
 
-  getGender(letter) {
-    return this.genderLetters.indexOf(letter) % 2
-      ? ' - Male'
-      : ' - Female'
-  }
-
   render() {
     return (
       <div className="container">
@@ -115,7 +106,6 @@ export default class Controllers extends Component {
             id="voices"
             name="voices"
           />
-
           <button className="buttons" onClick={this.convertText}>Convert</button>
         </fieldset>
 
