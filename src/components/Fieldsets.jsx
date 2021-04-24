@@ -20,6 +20,7 @@ export default class Fieldsets extends Component {
       voice: null,
       speed: 1,
       text: '',
+      error: null,
     }
     this.onSliderChange = this.onSliderChange.bind(this)
     this.onTextAreaChange = this.onTextAreaChange.bind(this)
@@ -34,11 +35,18 @@ export default class Fieldsets extends Component {
     fetch(`https://texttospeech.googleapis.com/v1beta1/voices?&key=${process.env.G_API_KEY}`)
       .then(resp => resp.json())
       .then((voices) => {
-        this.setState({
-          voices,
-        }, function () {
-          this.sortVoices()
-        })
+        if (voices.error) {
+          console.log('voices error:', voices)
+          this.setState({
+            error: voices,
+          })
+        } else {
+          this.setState({
+            voices,
+          }, function () {
+            this.sortVoices()
+          })
+        }
       })
       .catch((err) => {
         document.querySelector('.convert-info').textContent = `Error fetching voices: ${err.message}`
@@ -116,7 +124,11 @@ export default class Fieldsets extends Component {
             Text over 5000 characters will be split up & converted in multiple requests, please be patient.<br />
           </p>
         </fieldset>
-        <textarea placeholder="Paste your text here, select a voice and click convert" onChange={this.onTextAreaChange} />
+        <textarea
+          placeholder="Paste your text here, select a voice and click convert"
+          onChange={this.onTextAreaChange}
+          value={this.state.error ? JSON.stringify(this.state.error, null, 2) : ''}
+        />
 
       </div>
     )
