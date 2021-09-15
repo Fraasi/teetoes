@@ -1,57 +1,73 @@
 import React, { Component } from 'react'
 import Player from './Player'
-import getGoogleAudio from '../js/get-google-audio.js'
+// import getwebAudio from '../js/get-web-audios.js'
 
-const { remote } = require('electron')
+// const { remote } = require('electron')
 
-const { Menu, MenuItem } = remote
-const menu = new Menu()
-menu.append(new MenuItem({ role: 'cut', accelerator: 'CmdOrCtrl+X' }))
-menu.append(new MenuItem({ role: 'copy', accelerator: 'CmdOrCtrl+C' }))
-menu.append(new MenuItem({ role: 'paste', accelerator: 'CmdOrCtrl+V' }))
-menu.append(new MenuItem({ role: 'selectAll', accelerator: 'CmdOrCtrl+A' }))
+// const { Menu, MenuItem } = remote
+// const menu = new Menu()
+// menu.append(new MenuItem({ role: 'cut', accelerator: 'CmdOrCtrl+X' }))
+// menu.append(new MenuItem({ role: 'copy', accelerator: 'CmdOrCtrl+C' }))
+// menu.append(new MenuItem({ role: 'paste', accelerator: 'CmdOrCtrl+V' }))
+// menu.append(new MenuItem({ role: 'selectAll', accelerator: 'CmdOrCtrl+A' }))
 
 export default class Fieldsets extends Component {
   constructor() {
     super()
     this.state = {
       playing: false,
-      voices: null,
+      voices: [],
       voice: null,
       speed: 1,
       text: '',
       error: null,
     }
+    // this.synth = window.speechSynthesis
     this.onSliderChange = this.onSliderChange.bind(this)
     this.onTextAreaChange = this.onTextAreaChange.bind(this)
     this.sortVoices = this.sortVoices.bind(this)
   }
 
+  loadVoices() {
+    // const voices = window.speechSynthesis.getVoices();
+    const voicesEl = document.querySelector('#voices')
+    const sortedVoices =
+    this.state.voices.forEach((voice, i) => {
+      const option = document.createElement('option')
+      option.value = voice.name
+      option.innerHTML = voice.name
+      if (voice.default) option.setAttribute('selected', 'selected')
+      voicesEl.appendChild(option)
+    })
+  }
+
   componentDidMount() {
-    document.querySelector('textArea').addEventListener('contextmenu', (e) => {
-      e.preventDefault()
-      menu.popup({ window: remote.getCurrentWindow() })
-    }, false)
-    fetch(`https://texttospeech.googleapis.com/v1beta1/voices?&key=${process.env.G_API_KEY}`)
-      .then(resp => resp.json())
-      .then((voices) => {
-        if (voices.error) {
-          console.log('voices error:', voices)
-          this.setState({
-            error: voices,
-          })
-        } else {
-          this.setState({
-            voices,
-          }, function () {
-            this.sortVoices()
-          })
-        }
+    // document.querySelector('textArea').addEventListener('contextmenu', (e) => {
+    // e.preventDefault()
+    // menu.popup({ window: remote.getCurrentWindow() })
+    // }, false)
+
+    // this.loadVoices()
+    const voices = window.speechSynthesis.getVoices()
+
+    if (!voices.length) {
+      console.log('voices error:', voices)
+      document.querySelector('.convert-info').textContent = `Error fetching voices`
+      this.setState({
+        error: voices,
+        voices: voices,
+
+    }, function() { console.log(this.state.voices) })
+    } else {
+      console.log('voices found')
+      this.setState({
+        voices: voices,
+      }, function () {
+        // this.sortVoices()
+        console.log(this.state.voices)
+        this.loadVoices()
       })
-      .catch((err) => {
-        document.querySelector('.convert-info').textContent = `Error fetching voices: ${err.message}`
-        console.log(err)
-      })
+    }
   }
 
   sortVoices(e) {
@@ -95,7 +111,7 @@ export default class Fieldsets extends Component {
   }
 
   convertText() {
-    getGoogleAudio()
+    // getGoogleAudio()
   }
 
   render() {
@@ -105,10 +121,10 @@ export default class Fieldsets extends Component {
 
         <fieldset className="settings">
           <legend>Audio settings</legend>
-          <input type="radio" id="standard" name="voice" value="Standard" defaultChecked onChange={this.sortVoices} />
-          <label htmlFor="standard">Standard:</label>
-          <input type="radio" id="wavenet" name="voice" value="Wavenet" onChange={this.sortVoices} />
-          <label htmlFor="wavenet">Wavenet:</label>
+          {/* <input type="radio" id="standard" name="voice" value="Standard" defaultChecked onChange={this.sortVoices} />
+          <label htmlFor="standard">Standard:</label> */}
+          {/* <input type="radio" id="wavenet" name="voice" value="Wavenet" onChange={this.sortVoices} /> */}
+          {/* <label htmlFor="wavenet">Wavenet:</label> */}
           <label htmlFor="voices">Select voice:</label>
           <select
             id="voices"
@@ -127,7 +143,7 @@ export default class Fieldsets extends Component {
         <textarea
           placeholder="Paste your text here, select a voice and click convert"
           onChange={this.onTextAreaChange}
-          value={this.state.error ? JSON.stringify(this.state.error, null, 2) : ''}
+          value={this.state.error || ''}
         />
 
       </div>

@@ -1,5 +1,6 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
@@ -32,17 +33,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          loader: 'css-loader',
-          options: {
-            modules: true
-          }
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
-        query: {
+        options: {
           name: 'images/[name].[ext]?[hash]'
         }
       }
@@ -50,14 +49,14 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: 'bundle.css',
-      disable: false,
-      allChunks: true
     }),
-    new CopyPlugin([
-      { from: 'src/index.html', to: 'index.html' }
-    ]),
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/index.html', to: 'index.html' }
+      ]
+    }),
   ],
 
   resolve: {
