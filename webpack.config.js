@@ -4,9 +4,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
-  watch: ENV === 'development',
-  target: 'electron-renderer',
-  entry: './src/renderer_process.js',
+  mode: ENV === 'development' ? 'development' : 'production',
+  target: 'web',
+  entry: './src/index.js',
   output: {
     path: __dirname + '/build',
     publicPath: '',

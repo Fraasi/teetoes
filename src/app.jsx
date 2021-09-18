@@ -3,6 +3,9 @@ import Fieldsets from './components/Fieldsets.jsx';
 
 export default class App extends React.Component {
 
+  componentDidMount() {
+    // window.speechSynthesis.getVoices()
+  }
   // constructor() {
   //   this.state = {
   //     voices: []
