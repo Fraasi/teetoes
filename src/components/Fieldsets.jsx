@@ -22,7 +22,7 @@ const Fieldsets = () => {
         return v1.lang < v2.lang ? 1 : -1
       })
       console.log('voices found', synthVoices)
-      setVoice(voices.find(v => v.default === true))
+      setVoice(synthVoices.find(v => v.default === true))
       setVoices(sortedSynthVoices)
     }
   }, []);
@@ -44,11 +44,24 @@ const Fieldsets = () => {
   const playText = () => {
     setPlaying(true)
     console.log('play')
+
+    const msg = new SpeechSynthesisUtterance();
+    msg.text = text;
+    msg.voice = voice
+    window.speechSynthesis.speak(msg);
+
+    // Set the attributes.
+    // msg.volume = parseFloat(volumeInput.value);
+    // msg.rate = parseFloat(rateInput.value);
+    // msg.pitch = parseFloat(pitchInput.value);
+
+    // If a voice has been selected, find the voice and set the
+    // utterance instance's voice attribute.
   }
 
   const handleVoiceChange = (e) => {
-  console.log('e:', e.target.value)
-
+    console.log('e:', e.target.value)
+    setVoice(voices.find(voice => voice.name === e.target.value))
   }
 
 
@@ -62,19 +75,19 @@ const Fieldsets = () => {
         <select
           id="voices"
           name="voices"
-          onChange={ (e) => handleVoiceChange(e)}
+          onChange={(e) => handleVoiceChange(e)}
           defaultValue={voice}
-          >
+        >
           {
             voices.map((voice, i) => (
-                <option
-                  key={i}
-                  value={voice.name}
-                  selected={voice.default ? true : false}
-                >
-                  {voice.name}
-                </option>
-              )
+              <option
+                key={i}
+                value={voice.name}
+                selected={voice.default ? true : false}
+              >
+                {voice.name}
+              </option>
+            )
             )
           }
         </select>
